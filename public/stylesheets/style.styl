@@ -1,0 +1,163 @@
+/*
+ * Import nib
+ */
+@import 'nib'
+
+/*
+ * Grab a custom font from Google
+ */
+@import url('http://fonts.googleapis.com/css?family=Montserrat')
+@import url('http://fonts.googleapis.com/css?family=Roboto+Slab')
+
+/*
+ * Nib provides a CSS reset
+ */
+global-reset()
+
+/*
+ * Store the main color and
+ * background color as variables
+ */
+main-color = #333333
+background-color = #222222
+
+a
+  color #AAAAAA
+
+body
+  font-family 'Roboto Slab'
+  background-color background-color
+  color #CCCCCC
+
+.tweetButton
+  position fixed
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -15px;
+  width 30px
+  height 30px
+  background-image: url('images/twitterLogoFadeSmall.png')
+
+  &:hover { background-image: url('images/twitterLogoSmall.png') }
+  
+
+.searchresults
+  position absolute
+  width 60%
+  height 40%
+  left 20%
+  top 30%
+
+  .result-item
+    padding-bottom 4px
+
+  a
+    text-decoration none
+
+  &:hover { color:#FF9900 }
+
+.sentence
+  text-size:10px
+  color: #888888
+  margin-top:5px
+
+.results
+  text-align center
+
+input, input:focus
+  background-color rgba(0,0,0,0)
+  width 100%
+  border none
+  color #FF6600
+  text-align center
+  font-family Roboto Slab
+  font-size 48px
+  font 26px Roboto Slab
+  margin 0
+  outline 0 none
+  padding 7px
+
+select
+  position fixed
+  left 10px
+  top 20px
+  background-color rgba(0,0,0,0)
+  border none
+  color #FF9900
+  font-family Roboto Slab
+  font-size 48px
+  font 18px Roboto Slab
+  margin 0
+  outline 0 none
+  padding 7px
+
+header
+  font-family 'Montserrat'
+  padding 50px 10px
+  color #fff
+  font-size 25px
+  text-align center
+
+  /*
+   * Note the use of the `main-color`
+   * variable and the `darken` function
+   */
+  background-color main-color
+  border-bottom 1px solid darken(main-color, 30%)
+  text-shadow 0px -1px 0px darken(main-color, 30%)
+
+.container
+  width 580px
+  margin 50px auto
+  overflow hidden
+
+.main-content
+  float left
+  width 600px
+
+  p
+    margin-bottom 20px
+
+.sidebar
+  display block
+  width 200px
+
+  .widget
+
+    /*
+     * Note the lack of vendor
+     * prefixes here. Nib will
+     * add them for us
+     */
+
+    margin-left 20px
+    background-color main-color
+
+    h1
+      font-family 'Montserrat'
+      margin 13px 10px 4px
+      padding-top 10px
+      padding-bottom 10px
+      border-bottom 1px dotted #ddd
+      border-radius 2px 2px 0px 0px
+      margin-bottom 10px
+
+    p
+      font-size 13px
+      padding 10px 10px
+      margin-bottom 10px
+
+p
+  line-height 1.8
+
+footer
+  color #CCCCCC
+  position fixed
+  left 0px
+  bottom 0px
+  width 500px
+  margin 10px auto
+  padding-top 5px
+  padding-left 5px
+  font-size 13px

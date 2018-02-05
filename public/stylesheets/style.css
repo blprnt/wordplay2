@@ -1,0 +1,246 @@
+/*
+ * Import nib
+ */
+/*
+ * Grab a custom font from Google
+ */
+@import url("http://fonts.googleapis.com/css?family=Montserrat");
+@import url("http://fonts.googleapis.com/css?family=Roboto+Slab");
+/*
+ * Nib provides a CSS reset
+ */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+  color: #000;
+  background: #fff;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
+/*
+ * Store the main color and
+ * background color as variables
+ */
+a {
+  color: #aaa;
+}
+body {
+  font-family: 'Roboto Slab';
+  background-color: #222;
+  color: #ccc;
+}
+.tweetButton {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -15px;
+  width: 30px;
+  height: 30px;
+  background-image: url("images/twitterLogoFadeSmall.png");
+}
+.tweetButton:hover {
+  background-image: url("images/twitterLogoSmall.png");
+}
+.searchresults {
+  position: absolute;
+  width: 60%;
+  height: 40%;
+  left: 20%;
+  top: 30%;
+}
+.searchresults .result-item {
+  padding-bottom: 4px;
+}
+.searchresults a {
+  text-decoration: none;
+}
+.searchresults:hover {
+  color: #f90;
+}
+.sentence {
+  text-size: 10px;
+  color: #888;
+  margin-top: 5px;
+}
+.results {
+  text-align: center;
+}
+input,
+input:focus {
+  background-color: rgba(0,0,0,0);
+  width: 100%;
+  border: none;
+  color: #f60;
+  text-align: center;
+  font-family: Roboto Slab;
+  font-size: 48px;
+  font: 26px Roboto Slab;
+  margin: 0;
+  outline: 0 none;
+  padding: 7px;
+}
+select {
+  position: fixed;
+  left: 10px;
+  top: 20px;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: #f90;
+  font-family: Roboto Slab;
+  font-size: 48px;
+  font: 18px Roboto Slab;
+  margin: 0;
+  outline: 0 none;
+  padding: 7px;
+}
+header {
+  font-family: 'Montserrat';
+  padding: 50px 10px;
+  color: #fff;
+  font-size: 25px;
+  text-align: center;
+/*
+   * Note the use of the `main-color`
+   * variable and the `darken` function
+   */
+  background-color: #333;
+  border-bottom: 1px solid #242424;
+  text-shadow: 0px -1px 0px #242424;
+}
+.container {
+  width: 580px;
+  margin: 50px auto;
+  overflow: hidden;
+}
+.main-content {
+  float: left;
+  width: 600px;
+}
+.main-content p {
+  margin-bottom: 20px;
+}
+.sidebar {
+  display: block;
+  width: 200px;
+}
+.sidebar .widget {
+/*
+     * Note the lack of vendor
+     * prefixes here. Nib will
+     * add them for us
+     */
+  margin-left: 20px;
+  background-color: #333;
+}
+.sidebar .widget h1 {
+  font-family: 'Montserrat';
+  margin: 13px 10px 4px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #ddd;
+  border-radius: 2px 2px 0px 0px;
+  margin-bottom: 10px;
+}
+.sidebar .widget p {
+  font-size: 13px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+}
+p {
+  line-height: 1.8;
+}
+footer {
+  color: #ccc;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 500px;
+  margin: 10px auto;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 13px;
+}

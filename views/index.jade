@@ -1,0 +1,204 @@
+
+
+extend layout
+
+block content
+
+  script(type='text/javascript').
+      var defInput =!{JSON.stringify(defInput)}
+      var defCorpus =!{JSON.stringify(defCorpus)}
+      var deepLink = "test"
+
+  <a href="https://github.com/blprnt/wordplay"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+  
+
+  .searchresults
+
+    
+
+    script(type='text/javascript', src="http://code.jquery.com/jquery-1.9.1.min.js")
+    script.
+
+      var defInput;
+      var defCorpus;
+      var shareShowed = false;
+      var totalResults;
+      var expandedResult;
+
+      //var endPoint = "http://wordplay.o-c-r.org/wp/";
+      endPoint = "http://127.0.0.1:12892/wp/";
+
+      var resultCount = 0;
+      var originalHeight = $(window).height();
+      console.log("ORIGINAL HEIGHT:" + originalHeight);
+      positionInput();
+
+      var possibleStarts = [
+        "a terrible fate",
+        "four strong winds",
+        "before the storm",
+        "highway to the danger zone",
+        "killing me softly",
+        "a question about scales",
+        "forsooth!",
+        "the fog of war",
+        "your mighty castle"
+      ]
+
+      if (defCorpus) {
+        $('#corpusID').ready(function() {
+          console.log($(this));
+          $('#corpusID').val(defCorpus).change()
+        })
+      }
+      
+
+      var startInput = (defInput) ? defInput:possibleStarts[Math.floor(Math.random() * possibleStarts.length)];
+      var startCount = 0;
+
+      var timer = setInterval(doTyping, 100);
+
+      function showShare() {
+        var button = $('<div>').attr({class:'tweetButton'})
+        $('body').append(button);
+        shareShowed = true;
+
+      }
+
+      function setShare() {
+        $('.tweetButton').click(function() {
+          var deep = encodeURI("http://wordplay.o-c-r.org/" + document.getElementById("corpusID").value + "/" + $('#searchText').val())
+          deep = encodeURI(deep);//deep.replace("+","%20");
+          var url = "http://twitter.com/share?text=" + "WordPlay: " + $('#searchText').val() + " &url=" + deep;
+          var left = (screen.width/2)-(250);
+          var top = (screen.height/2)-(250);
+          window.open(url,'Do some sharing','height=500,width=500,toolbar=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no, top=' + top + ',left=' + left);
+
+        });
+
+        var pos = (originalHeight/2 - (resultCount * 10));
+        $('.tweetButton').animate({'top': pos}, 300, "swing", function() {
+
+        });
+      }
+
+      function doTyping() {
+        startCount ++;
+        $('#searchText').val(startInput.substr(0,startCount));
+        if (startCount == startInput.length) {
+          $("#wordForm").submit();
+          clearInterval(timer);
+        }
+      }
+
+      function submitForm(txt) {
+        if (txt) $('#searchText').val(txt);  
+        var corp = document.getElementById("corpusID").value;
+        var txt = document.getElementById("searchText").value;
+        console.log("QUERY:" + txt);
+        var json = $.getJSON(endPoint + corp + "/" + txt, function(data) {
+          console.log("JSON RECEIVED")
+          processResults(data);
+        }); 
+
+      }
+
+      function expandResult(r) {
+        if (expandedResult) collapseResult(expandedResult);
+        var t = $('<div/>').attr({class:'sentence'}).text(r.data("wp").sentence);
+        r.append(t);
+        expandedResult = r;
+        r.animate({height:75, marginTop:14}, 100, function() {
+
+        }).delay(0);
+
+      }
+
+      function collapseResult(r) {
+        console.log('collapse' + r);
+        $('.sentence').remove();
+        r.data('overed', false);
+        r.animate({height:14, marginTop:0}, 100, function() {
+
+        }).delay(100);
+      }
+
+      function positionResults() {
+      }
+
+      function positionInput() {
+        var pos = (originalHeight/2 - (resultCount * 10));
+        $('.searchresults').animate({'top': pos}, 300, "swing", function() {
+
+        });
+
+        console.log(resultCount + ":" + pos);
+      }
+
+      function clearResults() {
+        $(".results").empty();
+        resultCount = 0;
+      }
+
+      function processResults(json) {
+
+        clearResults();
+
+        $(".result-list").remove();
+
+        totalResults = json.results.length;
+
+        for(var i = 0; i < json.results.length; i++) {
+          var txt = json.results[i].segment;
+          var sent = json.results[i].sentence;
+          console.log("sentence:" + sent);
+          $( "<div/>", {
+           "class": "result-item",
+           "id": "result" + i,
+           html: "<a href='#' title='" + sent + "''>" + txt + "</a>",
+          }).appendTo( ".results" );
+
+          $("#result" + i).data("wp", json.results[i]);
+          $("#result" + i).css('opacity', 0);
+          $("#result" + i).hover(function() {
+            
+          }, function() {
+            
+          });
+          $("#result" + i).click(function() {
+            //console.log($(this).text());
+            //submitForm($(this).text());
+
+            if (!$(this).data("overed")) {
+              $(this).data("overed", true)
+              expandResult($(this));
+            } else {
+              collapseResult($(this));
+            }
+
+          });
+          $("#result" + i).animate({opacity:1}, 100 + (i * 50), function() {
+            console.log("ANIMATION FINISHED.");
+          });
+
+          resultCount ++;
+        }
+
+        positionInput();
+        if (!shareShowed) showShare();
+        setShare();
+
+      }
+
+    form(name="login", action="JavaScript:submitForm()", method="post" id="wordForm")
+        select(name="corpus" id="corpusID" onchange='this.form.submit()')
+          option(value="shakes") Shakespeare
+          option(value="bible") Bible
+          option(value="freud") Freud
+          option(value="mobydick") Moby Dick
+          option(value="bieber") Bieber
+          option(value="momatitles") MoMA Titles
+        input(type="text", name="user", id="searchText" value="" autofocus)
+
+    .results
+  
